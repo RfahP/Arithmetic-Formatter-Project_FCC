@@ -1,0 +1,48 @@
+def arithmetic_arranger(problems, show_answers=False):
+    if len(problems) > 5:
+        return 'Error: Too many problems.'
+    a = ''
+    b = '\n'
+    c = '\n'
+    d = '\n'
+
+    for number in problems:
+        part = number.split()
+        #Abbreviation
+        n1 = part[0]
+        op = part[1]
+        n2 = part[2]
+        answer = 0
+
+        if op not in ['+', '-']:
+            return "Error: Operator must be '+' or '-'."
+        if not n1.isdigit() or not n2.isdigit():
+            return 'Error: Numbers must only contain digits.'
+        if len(n1) > 4 or len(n2) > 4:
+            return 'Error: Numbers cannot be more than four digits.'
+        if op == '+':
+            answer = int(n1) + int(n2)
+        elif op == '-':
+            answer = int(n1) - int(n2)
+
+        #Rules
+        dash_len = (2 + max(len(n1), len(n2))) * '-'
+        n1_gap = (len(dash_len) - len(n1)) * ' '
+        n2_gap = (len(dash_len) - len(n2) - 1) * ' '
+        ans_len = len(str(answer))
+        ans_gap = (len(dash_len) - ans_len) * ' '
+        gap = 4 * ' ' 
+
+        a += f"{n1_gap}{n1}{gap}"
+        b += f"{op}{n2_gap}{n2}{gap}"
+        c += f"{dash_len}{gap}"
+        d += f"{ans_gap}{answer}{gap}"
+
+    if show_answers:
+        result = a + b + c + d
+    else:
+        result = a + b + c 
+
+    return result
+
+print(arithmetic_arranger(["3 / 855", "3801 - 2", "45 + 43", "123 + 49"]))
